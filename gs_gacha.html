@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原神抽卡分析</title>
+</head>
+<body>
+<a href="index.html" style="text-decoration: none;"><</a>
+<font size="8"><b>原神抽卡分析</b></font>
+<article>
+    <img src="./l.webp" height="450" width="800"/>
+    <audio src="./start.mp3" controls></audio>
+    <font> </font>
+    <p><br></p>
+</article>
+import requests<br>
+import re<br>
+end_id='0'<br>
+url='https://api-takumi.mihoyo.com/common/gacha_record/api/getGachaLog?authkey_ver=1&sign_type=2&auth_appid=webview_gacha&win_mode=fullscreen&gacha_id=1db86adac1dbe450484dfcdc4d2f8d1e634cfa&timestamp=1703634155&region=prod_gf_cn&default_gacha_type=11&lang=zh-cn&authkey=hPsnlGY9qBGqIs0n6Su5QBstyD0guy9opMh9r6JvE45IzZ%2BlbgftysJ1eDeE6A%2FmzD9Ayglctvr%2BEzcwyiggYCpKxoxgvbmeijiTiBV32ju%2Ffcy3pZ0xLuQLfXHjIIpz9G6X5PAob47loDybGyS9ehJ3pf43JR5P0%2BlwWLSHH4bIMdzipLjIfU97n3QxFZ1GavvFXwvhf0YfIbC8gn%2FgnsyEk1S4Cj3On2RFkYF8UMwxmjuQlrizJRUnemHbxoWq8%2FWTMsulskh11FrKvP8pdw2Uoqkd3APe46U7hDf4vwjlgS8KLa0z8dtZ7Yf7Vae5YFR79EMawQBKDS4k36KEvAM08Vd5HFEHk9Ttr2IOLrjiRS%2F3JRbAMLF3VKmaqUhZMmkIpTcULO%2Fa2wWShrxR%2FYKSTwBtwai1mFshXD4AooMICTNgipM6Tpgmby6LZXlOJeUvvsMJWgq9AWqByT71jB%2F3PC%2B%2BTT6FfBHKpaP%2B5mLbzFGtku6q9FPDWg2iFyin9O7zZDAYsHPXENGbOBzhcQ5ma%2FLSmCotkzKS5jdE3FMOE3Kr5SEoIurgDoXLCywThXs3XM%2Fq2Mh0CkfyGLSqA7CLtUO17sPQcenArlKC3VkH1BTadwRq2zuAioinI0yE5nAEXmdTf%2BzkvR9TVPVYXMsd4vnEQzwGAtlGWDJ9YDo%3D&game_biz=hkrpg_cn&os_system=Windows%2011%20%20%2810.0.22631%29%2064bit&device_model=H610M%20S2%20DDR4%20%28Gigabyte%20Technology%20Co.%2C%20Ltd.%29&plat_type=pc&page=1&size=20&gacha_type=11&end_id='<br>
+while True:<br>
+    resp=requests.get(url+end_id).text<br>
+    item=re.finditer(r'{"uid":".*?","gacha_id":".*?","gacha_type":".*?","item_id":".*?","count":".*?","time":".*?","name":"(?P<name>.*?)","lang":".*?","item_type":".*?","rank_type":"(?P<rank_type>.*?)","id":"(?P<id>.*?)"}',resp)<br>
+    count=0<br>
+    for j in item:<br>
+        count+=1<br>
+        if int(j.group('rank_type'))>=4:<br>
+            print(j.group('name'),j.group('rank_type'))<br>
+        end_id=j.group('id')<br>
+    if count==0:<br>
+        break<br>
+<a href="./index.html">返回</a> <a href="https://github.com/mx287203">Github</a>
+</body>
+</html>
