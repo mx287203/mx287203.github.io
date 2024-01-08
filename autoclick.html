@@ -12,38 +12,39 @@
 <body>
 <a href="index.html" style="text-decoration: none;"><</a>
 <font size="8"><b>自动点击</b></font>
-<br>from pyautogui import *<br>
-import keyboard<br>
-import threading<br>
-import ctypes,sys<br>
-s=0<br>
-def main():<br>
-    global s<br>
-    while 1:<br>
-        if s:<br>
-            mouseDown()<br>
-            sleep(0.01)<br>
-            mouseUp()<br>
-        sleep(0.1)<br>
-def service():<br>
-    global s<br>
-    while 1:<br>
-        if keyboard.is_pressed('p'):<br>
-            s=1-s<br>
-            sleep(0.3)<br>
-        sleep(0.01)<br>
-def is_admin():<br>
-    try:<br>
-        return ctypes.windll.shell32.IsUserAnAdmin()<br>
-    except:<br>
-        return None<br>
-if is_admin():<br>
-    a = threading.Thread(target=main)<br>
-    b = threading.Thread(target=service)<br>
-    a.start()<br>
-    b.start()<br>
-else:<br>
-    ctypes.windll.shell32.ShellExecuteW(None,u'runas',sys.executable,__file__,None,1)<br>
+<pre>from pyautogui import *
+import keyboard
+import threading
+import ctypes,sys
+s=0
+def main():
+    global s
+    while 1:
+        if s:
+            mouseDown()
+            sleep(0.01)
+            mouseUp()
+        sleep(0.1)
+def service():
+    global s
+    while 1:
+        if keyboard.is_pressed('p'):
+            s=1-s
+            sleep(0.3)
+        sleep(0.01)
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return None
+if is_admin():
+    a = threading.Thread(target=main)
+    b = threading.Thread(target=service)
+    a.start()
+    b.start()
+else:
+    ctypes.windll.shell32.ShellExecuteW(None,u'runas',sys.executable,__file__,None,1)
+</pre>
 <h2>安装</h2>
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyautogui<br>
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple keyboard<br><br>
